@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        /* Centered and capitalized headings */
+        h1, h2, h3, h4, h5, h6 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Header styling */
+        .row {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Underline for header */
+        .head-underline {
+            border-top: 3px solid black;
+            border-bottom: 1px solid black;
+            width: 90%;
+            margin: auto;
+        }
+
+        /* Form container margin */
+        #form {
+            margin-left: 120px;
+        }
+
+        /* Introduction and Closing styling */
+        .introduction-closing {
+            text-align: justify;
+            margin-left: 120px; /* Match the form container margin */
+            margin-right: 120px;
+        }
+
+        /* Signature container styling */
+        #signature {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Individual signature */
+        .row-signature {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature-item {
+            flex: 1;
+            margin: 0 20px; /* Adjust margin as needed */
+        }
+
+        /* Signature name styling */
+        #signature-name {
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+
+        /* Form list styling */
+        #form ol {
+            list-style: none; /* Remove default numbering */
+            padding-left: 0;
+        }
+
+        /* Form list item styling */
+        #form ol li {
+            position: relative;
+            padding-left: 20px; /* Adjust indent */
+            margin-bottom: 10px; /* Adjust margin between items */
+        }
+
+        /* Colon styling */
+        .colon {
+            position: absolute;
+            left: calc(100% + 10px); /* Position the colon after the longest value */
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<div>
+    <div class="row">
+        <div th:each="header : ${letter.header}" class="kodeposlogo">
+            <h3><strong th:text="${header}"></strong></h3>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header underline -->
+        <hr class="head-underline"/>
+
+        <!-- Title -->
+        <div class="row">
+            <div>
+                <h2><strong th:text="${letter.title}"></strong></h2>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="row introduction-closing" th:text="${letter.introduction}">
+            &emsp; &emsp; &emsp;
+        </div>
+
+        <!-- Forms -->
+        <div id="form" class="introduction-closing">
+            <ol>
+                <li th:each="form, iterStat : ${letter.form}">
+                    <span th:text="${iterStat.count} + '. ' + ${form}"></span><span class="colon">:</span>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Closing -->
+        <div class="row introduction-closing" th:text="${letter.closing}"></div>
+    </div>
+
+    <!-- Signatures -->
+    <div id="signature">
+        <div class="row-signature">
+            <!-- Loop through signatures -->
+            <div th:each="signature, iterStat : ${letter.signature}" class="signature-item">
+                <div id="nama-camat">
+                    <br th:text="${signature.role}">
+                    <div id="signature-name"><u th:text="${signature.name}"></u></div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
